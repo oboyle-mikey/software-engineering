@@ -14,6 +14,24 @@ public class LCA <Key extends Comparable<Key>, Value>{
 			this.key = key;
 			this.N = N;
 		}
-	}	
+	}
+	
+	//Is empty implementation with size 
+	
+	public boolean isEmpty(){
+		return size()==0;
+	}
+	
+	public int size(){
+		return size(root);
+	}
+	
+	public int size(Node x){
+		if(x==null){
+			return 0;
+		}else{
+			return x.N;
+		}
+	}
 
 }
