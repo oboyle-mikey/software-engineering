@@ -9,10 +9,9 @@ public class LCA <Key extends Comparable<Key>, Value>{
 		private Node left, right;
 		private int N;
 
-		public Node(Key key, Value val, int N){
+		public Node(Key key, Value val){
 			this.val = val;
 			this.key = key;
-			this.N = N;
 		}
 	}
 	
@@ -32,6 +31,29 @@ public class LCA <Key extends Comparable<Key>, Value>{
 		}else{
 			return x.N;
 		}
+	}
+	
+	//Insertion method put, called recursively with comparison to order of keys
+	
+	public void put(Key key, Value val){
+		root = put(root, key, val);
+	}
+	
+	public Node put(Node x, Key key, Value val){
+		if(x==null){
+			return new Node(key, val);
+		}
+		int cmp = key.compareTo(x.key);
+		if(cmp<0){
+			x.left = put(x.left, key, val);
+		}else if(cmp>0){
+			x.right = put(x.right, key, val);
+		}else{
+			x.val = val;
+		}
+		x.N = 1 + size(x.left) + size(x.right);
+		return x;
+
 	}
 
 }
