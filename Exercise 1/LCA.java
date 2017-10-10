@@ -74,6 +74,11 @@ public class LCA <Key extends Comparable<Key>, Value>{
 		return null;
 	}
 	
+	//Assignment Problem - Lowest Common Ancester LCA
 	
+	public Value lowestCommonAncester(Key key, Key key1){
+		//Write method here
+		return null;
+	}
 
 }
