@@ -17,6 +17,8 @@ public class LCATest{
 	@Test
 	public void test2(){
 		LCA test = initializeData();
+		int t = test.lowestCommonAncestor(3, 12);
+		assertEquals(t, 10);
 		
 	}
 	
@@ -24,12 +26,16 @@ public class LCATest{
 	@Test 
 	public void test3(){
 		LCA test = initializeData();
+		int t = test.lowestCommonAncestor(2, 3);
+		assertEquals(t, 2);
 	}
 	
 	//Test 4: Tree without two key references contained in the data
 	@Test
 	public void test4(){
 		LCA test = initializeData();
+		int t = test.lowestCommonAncestor(13, 120);
+		assertEquals(t, -1);
 	}
 	
 	//Test Other Cases

@@ -47,7 +47,7 @@ public class LCA <Key extends Comparable<Key>>{
 		}
 		
 
-	public int lowestCommonAncestor(BST tree, Key key1, Key key2){
+	public int lowestCommonAncestor(Key key1, Key key2){
 		return 0;
 	}
 }
