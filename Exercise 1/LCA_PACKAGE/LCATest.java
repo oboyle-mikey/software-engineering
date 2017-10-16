@@ -4,35 +4,39 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class LCATest {
+public class LCATest{
 	
 	//Test 1: Empty Tree Case
 	@Test 
 	public void test1() {
-		BST test = initializeData();
+		LCA test = new LCA();
+		
 	}
 	
 	//Test 2: Two nodes with separate node as common ancestor
 	@Test
 	public void test2(){
-		BST test = initializeData();
+		LCA test = initializeData();
+		
 	}
 	
 	//Test 3: Two nodes with one node as the common ancestor
 	@Test 
 	public void test3(){
-		BST test = initializeData();
+		LCA test = initializeData();
 	}
 	
 	//Test 4: Tree without two key references contained in the data
 	@Test
 	public void test4(){
-		BST test = initializeData();
+		LCA test = initializeData();
 	}
 	
+	//Test Other Cases
+	
 	//Method to standardise initialisation of BST
-	public static BST initializeData(){
-		BST test = new BST();
+	public static LCA initializeData(){
+		LCA test = new LCA();
 		test.put(10);
 		test.put(2);
 		test.put(3);
@@ -40,6 +44,34 @@ public class LCATest {
 		test.put(12);
 		return test;
 	}
-	//Test Other Cases
+	
+	//Test Data Structure Methods 
+	
+	//Test constructor
+		@Test
+		public void testConstruct(){
+			LCA test = new LCA();
+		}
+		
+		//Testing put method
+
+		@Test
+		public void testPut() {
+			LCA test = new LCA();
+			test.put(10);
+			test.put(2);
+			test.put(3);
+			test.put(41);
+			test.put(12);
+			test.put(10);
+			assertEquals(test.root.key, 10);
+			assertEquals(test.root.right.key, 41);
+			assertEquals(test.root.left.key, 2);
+			assertEquals(test.root.right.left.key, 12);
+			assertEquals(test.root.left.right.key, 3);
+			
+		}
+	
+	
 
 }
