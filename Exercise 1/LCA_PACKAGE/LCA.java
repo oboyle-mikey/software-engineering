@@ -1,5 +1,7 @@
 package LCA_PACKAGE;
 
+import java.util.ArrayList;
+
 import LCA_PACKAGE.BST.Node;
 
 public class LCA <Key extends Comparable<Key>>{
@@ -60,6 +62,29 @@ public class LCA <Key extends Comparable<Key>>{
 
 
 	public int lowestCommonAncestor(Key key1, Key key2){
-		return 0;
+		
+		ArrayList<Integer> p1 = new ArrayList<>();
+		ArrayList<Integer> p2 = new ArrayList<>();
+		
+		//Add path of nodes to each key to allow for comparison of common ancestor
+		
+		p1 = findPath(key1);
+		p2 = findPath(key2);
+		
+		for(int i = 0; i<p1.size() && i<p2.size(); i++){
+			// If there is a common ancestor element in both lists return it
+			if(p1.get(i).equals(p2.get(i))){
+				return p1.get(i);
+			}
+		}
+		
+		//Return -1 if no ancestor
+		return -1;
+	}
+	
+	
+	//Method to return the list
+	public ArrayList<Integer> findPath(Key key1){
+		return null;
 	}
 }
