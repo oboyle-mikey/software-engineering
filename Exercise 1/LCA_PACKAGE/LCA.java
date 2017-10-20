@@ -90,7 +90,7 @@ public class LCA <Key extends Comparable<Key>>{
 	
 	
 	//Method to return the list, returns true if node found and populates global lists
-	public boolean findPath(Node x, Key key1, ArrayList<Key>path){
+	public boolean findPath(Node x, Key key, ArrayList<Key>path){
 		
 		//Case tree empty or leaf found != search
 		if(x==null){
@@ -98,12 +98,19 @@ public class LCA <Key extends Comparable<Key>>{
 		}
 		
 		//Case key found
-		if(x.key.equals(key1)){
+		if(x.key.equals(key)){
 			path.add(x.key);
 			return true;
 		}
 		
 		//Recurse left && right paths, adding nodes to list until above cases hold
+		boolean leftCheck = findPath(x.left, key, path);
+		boolean rightCheck = findPath(x.right, key, path);
+		
+		if(leftCheck || rightCheck){
+			path.add(x.key);
+			return true;
+		}
 		
 		return false;
 		

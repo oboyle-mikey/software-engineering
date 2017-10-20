@@ -22,7 +22,7 @@ public class LCATest{
 
 	}
 
-	//Test 3: Two nodes with one node as the common ancestor
+	//Test 3: Two nodes with one node being the common ancestor
 	@Test 
 	public void test3(){
 		LCA test = initializeData();
