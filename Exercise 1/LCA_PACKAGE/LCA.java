@@ -19,8 +19,11 @@ public class LCA <Key extends Comparable<Key>>{
 	}
 
 	//Root node that will be referenced in the tree as the node with no parent
+	//Lists to store paths for a given query of two keys
 
 	public Node root;
+	public ArrayList<Key> p1 = new ArrayList<>();
+	public ArrayList<Key> p2 = new ArrayList<>();
 
 	//Default constructor - NB *** possible default to test data in construct???
 
@@ -63,18 +66,21 @@ public class LCA <Key extends Comparable<Key>>{
 
 	public int lowestCommonAncestor(Key key1, Key key2){
 		
-		ArrayList<Integer> p1 = new ArrayList<>();
-		ArrayList<Integer> p2 = new ArrayList<>();
 		
 		//Add path of nodes to each key to allow for comparison of common ancestor
 		
-		p1 = findPath(key1);
-		p2 = findPath(key2);
+		boolean keyOnePresent = findPath(root, key1, p1);
+		boolean keyTwoPresent = findPath(root, key2, p2);
+		
+		//Return -1 for non present keys
+		if(!keyOnePresent || !keyTwoPresent){
+			return -1;
+		}
 		
 		for(int i = 0; i<p1.size() && i<p2.size(); i++){
 			// If there is a common ancestor element in both lists return it
 			if(p1.get(i).equals(p2.get(i))){
-				return p1.get(i);
+				return (int)p1.get(i);
 			}
 		}
 		
@@ -83,8 +89,23 @@ public class LCA <Key extends Comparable<Key>>{
 	}
 	
 	
-	//Method to return the list
-	public ArrayList<Integer> findPath(Key key1){
-		return null;
+	//Method to return the list, returns true if node found and populates global lists
+	public boolean findPath(Node x, Key key1, ArrayList<Key>path){
+		
+		//Case tree empty or leaf found != search
+		if(x==null){
+			return false;
+		}
+		
+		//Case key found
+		if(x.key.equals(key1)){
+			path.add(x.key);
+			return true;
+		}
+		
+		//Recurse left && right paths, adding nodes to list until above cases hold
+		
+		return false;
+		
 	}
 }
