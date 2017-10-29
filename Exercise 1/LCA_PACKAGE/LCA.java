@@ -2,8 +2,6 @@ package LCA_PACKAGE;
 
 import java.util.ArrayList;
 
-import LCA_PACKAGE.BST.Node;
-
 public class LCA <Key extends Comparable<Key>>{
 
 	//Private class representing the nodes in the binary tree, the ancestry will be 
@@ -71,6 +69,17 @@ public class LCA <Key extends Comparable<Key>>{
 		
 		boolean keyOnePresent = findPath(root, key1, p1);
 		boolean keyTwoPresent = findPath(root, key2, p2);
+		
+		for(int j = 0; j<p1.size() && j<p2.size(); j++){
+			System.out.print(p1.get(j));
+		}
+		
+		System.out.println();
+		
+		for(int k = 0; k<p1.size() && k<p2.size(); k++){
+			System.out.print(p2.get(k));
+		}
+		
 		
 		//Return -1 for non present keys
 		if(!keyOnePresent || !keyTwoPresent){
