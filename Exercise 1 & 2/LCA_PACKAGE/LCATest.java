@@ -9,45 +9,96 @@ public class LCATest{
 	//Test 1: Empty Tree Case
 	@Test 
 	public void test1() {
-		LCA test = new LCA();
+		Digraph g = new Digraph(0);
+		LCA test = new LCA(g);
+		int LCAtest = test.lowestCommonAncestor(1, 2);
+		assertEquals(LCAtest, -1);
 
 	}
 
-	//Test 2: Two nodes with separate node as common ancestor
-	@Test
+	//Test 2: Two nodes with one node being the common ancestor
+	@Test 
 	public void test2(){
 		LCA test = initializeData();
-		int t = test.lowestCommonAncestor(3, 12);
-		assertEquals(t, 10);
-
+		int LCATest = test.lowestCommonAncestor(6, 1);
+		assertEquals(LCATest, 1);
+		
 	}
 
-	//Test 3: Two nodes with one node being the common ancestor
-	@Test 
+	//Test 3: Tree without two key references contained in the data
+	@Test
 	public void test3(){
 		LCA test = initializeData();
-		int t = test.lowestCommonAncestor(2, 3);
-		assertEquals(t, 2);
+		int LCATest = test.lowestCommonAncestor(60, 50);
+		assertEquals(LCATest, -1);
+		
 	}
-
-	//Test 4: Tree without two key references contained in the data
+	
+	//Test 4: Tree with two nodes contained and one common ancestor
 	@Test
 	public void test4(){
 		LCA test = initializeData();
-		int t = test.lowestCommonAncestor(13, 120);
-		assertEquals(t, -1);
+		int LCATest = test.lowestCommonAncestor(6, 5);
+		assertEquals(LCATest, 1);
 	}
+	
+	//Test 5: Tree has cycle case
+	@Test
+	public void test5(){
+		LCA test = initializeDataCycle();
+		int LCATest = test.lowestCommonAncestor(4, 5);
+		assertEquals(LCATest, -1);
+	}
+	
+	//Test 6: Tree with two nodes contained and more then one common ancestor
+	@Test
+	public void test6(){
+		LCA test = initializeData();
+		//Initialise new data
+	}
+	
+
 
 	//Test Other Cases
 
 	//Method to standardise initialisation of BST
+	
+//					1
+//				/	|	\
+//			   2	4	 3
+//					|	 |	
+//					5	 6	
+//					\	/
+//					  7
+//					  |
+//					  8
+
 	public static LCA initializeData(){
-		LCA test = new LCA();
-		test.put(10);
-		test.put(2);
-		test.put(3);
-		test.put(41);
-		test.put(12);
+		Digraph g = new Digraph(10);
+		g.addEdge(1, 2);
+		g.addEdge(1, 3);
+		g.addEdge(1, 4);
+		g.addEdge(3, 6);
+		g.addEdge(4, 5);
+		g.addEdge(5, 7);
+		g.addEdge(6, 7);
+		g.addEdge(7, 8);
+		LCA test = new LCA(g);
+		return test;
+	}
+	
+	public static LCA initializeDataCycle(){
+		Digraph g = new Digraph(10);
+		g.addEdge(1, 2);
+		g.addEdge(1, 3);
+		g.addEdge(1, 4);
+		g.addEdge(3, 6);
+		g.addEdge(4, 5);
+		g.addEdge(5, 7);
+		g.addEdge(6, 7);
+		g.addEdge(7, 8);
+		g.addEdge(8, 1);
+		LCA test = new LCA(g);
 		return test;
 	}
 
@@ -56,35 +107,22 @@ public class LCATest{
 	//Test constructor
 	@Test
 	public void testConstruct(){
-		LCA test = new LCA();
+		LCA test = initializeData();
 	}
 
-	//Testing put method
+	// Testing put method
 
 	@Test
 	public void testPut() {
-		LCA test = new LCA();
-		test.put(10);
-		test.put(2);
-		test.put(3);
-		test.put(41);
-		test.put(12);
-		test.put(10);
-		assertEquals(test.root.key, 10);
-		assertEquals(test.root.right.key, 41);
-		assertEquals(test.root.left.key, 2);
-		assertEquals(test.root.right.left.key, 12);
-		assertEquals(test.root.left.right.key, 3);
+		LCA test = initializeData();
+		
 
 	}
 	
 	@Test 
 	public void testGet(){
 		LCA test = initializeData();
-		boolean t1 = test.get(10);
-		boolean t2 = test.get(123);
-		assertEquals(t1, true);
-		assertEquals(t2, false);
+		
 	}
 
 
