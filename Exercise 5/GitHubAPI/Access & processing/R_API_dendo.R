@@ -26,9 +26,11 @@ myFollowers_JSON = content(GET("https://api.github.com/users/oboyle-mikey/follow
 myFollowers_R = jsonlite::fromJSON(jsonlite::toJSON(myFollowers_JSON))
 userNames = myFollowers_R$login
 
-#Creating Dataframe
+#Creating Dataframe 1
 nameState = c()
 follow = c()
+imports = c()
+
 
 #Collecting my followers and adding them to the vectors of nameState and follow
 for(i in 1:length(userNames)){
@@ -46,7 +48,7 @@ for(i in 1:length(userNames)){
   theirFollowers_R = jsonlite::fromJSON(jsonlite::toJSON(theirFollowers_JSON))
   theirUserNames = c(theirFollowers_R$login)
   for(j in 1:length(theirUserNames)){
-    if(theirUserNames[j] != 'oboyle-mikey' ){
+    if(theirUserNames[j] != 'oboyle-mikey' && theirUserNames[j] %in% userNames == FALSE){
       nameState = c(nameState, paste0("oboyle-mikey.",userNames[i],".", theirUserNames[j]))
       theirFollowersProfile_JSON = content(GET(paste0("https://api.github.com/users/",theirUserNames[j]), token))
       theirFollowersProfile_R = jsonlite::fromJSON(jsonlite::toJSON(theirFollowersProfile_JSON))
@@ -63,11 +65,11 @@ file = write.csv(dendo_dFrame, file = filePath)
 
 
 
-#DataSet1
+#DataSet1 - dendo_dFrame
 #For each user we need the following csv format to import into d3.js Cluster Dendogram
 #  id,value
 
-#DataSet2
+#DataSet2 - hierarc_dFrame
 #For each user we need the following json format to import into d3.js Hierarchical Edge Building
 # 
 # [
@@ -78,6 +80,9 @@ file = write.csv(dendo_dFrame, file = filePath)
 #   },
 #     etc..
 # ]
+
+#Create a csv name, size, imports
+#Run: var table = d3.csvParse(text)
 
 
 
