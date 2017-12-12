@@ -18,7 +18,7 @@ access_token <- oauth2.0_token(oauth_endpoints("github"), myapplication)
 token = config(token = access_token)
 
 
-#Initial State
+#Initial root of my profile
 
 nameState = c('oboyle-mikey')
 myProfile_JSON = content(GET("https://api.github.com/users/oboyle-mikey", token))
@@ -30,7 +30,7 @@ userNames = myFollowers_R$login
 nameState = c()
 follow = c()
 
-#My Followers
+#Collecting my followers and adding them to the vectors of nameState and follow
 for(i in 1:length(userNames)){
   nameState = c(nameState, paste0("oboyle-mikey.",userNames[i]))
   theirProfile_JSON = content(GET(paste0("https://api.github.com/users/",userNames[i]), token))
@@ -40,21 +40,35 @@ for(i in 1:length(userNames)){
 
 
 
-#My Followers Followers
+#Collecting my Followers Followers and adding them to the vectors of nameState and follow
 for(i in 1:length(userNames)){
   theirFollowers_JSON = content(GET((paste0("https://api.github.com/users/",userNames[i], "/followers"))))
   theirFollowers_R = jsonlite::fromJSON(jsonlite::toJSON(theirFollowers_JSON))
   theirUserNames = c(theirFollowers_R$login)
   for(j in 1:length(theirUserNames)){
+    if(theirUserNames[j] != 'oboyle-mikey' ){
       nameState = c(nameState, paste0("oboyle-mikey.",userNames[i],".", theirUserNames[j]))
       theirFollowersProfile_JSON = content(GET(paste0("https://api.github.com/users/",theirUserNames[j]), token))
       theirFollowersProfile_R = jsonlite::fromJSON(jsonlite::toJSON(theirFollowersProfile_JSON))
       follow = c(follow, theirFollowersProfile_R$followers)
-  }
+    }
+   }
 }
 
+#Simple dataframe to pass into dendo.html, creates a one directional network with root being myself
+dendo_dFrame = data.frame(nameState, follow)
+filePath = '/Users/michaeloboyle/Documents/dendo.csv'
+file = write.csv(dendo_dFrame, file = filePath)
 
-#For each user we need the following format to import into d3.js Hierarchical Edge Building
+
+
+
+#DataSet1
+#For each user we need the following csv format to import into d3.js Cluster Dendogram
+#  id,value
+
+#DataSet2
+#For each user we need the following json format to import into d3.js Hierarchical Edge Building
 # 
 # [
 #   {
