@@ -48,12 +48,13 @@
 
 </style>
 <body>
-<script src="d3.js"></script>
+<script src="d3_hierarc.js"></script>
 <script>
 
 var diameter = 960,
     radius = diameter / 2,
     innerRadius = radius - 120;
+
 
 var cluster = d3.cluster()
     .size([360, innerRadius]);
@@ -61,7 +62,8 @@ var cluster = d3.cluster()
 var line = d3.radialLine()
     .curve(d3.curveBundle.beta(0.85))
     .radius(function(d) { return d.y; })
-    .angle(function(d) { return d.x / 180 * Math.PI; });
+    .angle(function(d) { return d.x / 180 * Math.PI; })
+
 
 var svg = d3.select("body").append("svg")
     .attr("width", diameter)
@@ -72,7 +74,7 @@ var svg = d3.select("body").append("svg")
 var link = svg.append("g").selectAll(".link"),
     node = svg.append("g").selectAll(".node");
 
-d3.json("Flare.csv", function(error, classes) {
+d3.json("hierarc.json", function(error, classes) {
   if (error) throw error;
 
   var root = packageHierarchy(classes)
@@ -159,11 +161,11 @@ function packageImports(nodes) {
   });
 
   // For each import, construct a link from the source to target node.
-  nodes.forEach(function(d) {
-    if (d.data.imports) d.data.imports.forEach(function(i) {
-      imports.push(map[d.data.name].path(map[i]));
-    });
-  });
+  //nodes.forEach(function(d) {
+  //  if (d.data.imports) d.data.imports.forEach(function(i) {
+  //    imports.push(map[d.data.name].path(map[i]));
+  //  });
+  //});
 
   return imports;
 }
