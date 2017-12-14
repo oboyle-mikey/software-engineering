@@ -58,7 +58,7 @@ public class Digraph {
 
     private final int V;           // number of vertices in this digraph
     private int E;                 // number of edges in this digraph
-    private Bag<Integer>[] adj;    // adj[v] = adjacency list for vertex v
+    public Bag<Integer>[] adj;    // adj[v] = adjacency list for vertex v
     private int[] indegree;        // indegree[v] = indegree of vertex v
     
     /**
@@ -189,6 +189,7 @@ public class Digraph {
         validateVertex(v);
         return indegree[v];
     }
+    
 
     /**
      * Returns the reverse of the digraph.
@@ -204,6 +205,7 @@ public class Digraph {
         }
         return reverse;
     }
+   
 
     /**
      * Returns a string representation of the graph.

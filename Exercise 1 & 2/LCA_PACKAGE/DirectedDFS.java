@@ -42,7 +42,7 @@ package LCA_PACKAGE;
  *  @author Kevin Wayne
  */
 public class DirectedDFS {
-    private boolean[] marked;  // marked[v] = true if v is reachable
+    public boolean[] marked;  // marked[v] = true if v is reachable
                                // from source (or sources)
     private int count;         // number of vertices reachable from s
 

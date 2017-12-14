@@ -14,18 +14,28 @@ public class LCA {
 		return testDAG.hasCycle();
 	}
 	
+	
 	public int lowestCommonAncestor(int a, int b){
 		if(hasCycle()){
 			return -1;
 		}else if(graph.V()==0){
 			return -1;
 		}else{
-			return 0;
-			//Some form of augmented DFS alogrithm
+
+			DirectedDFS DFS_A = new DirectedDFS(graph, a);
+			DirectedDFS DFS_B = new DirectedDFS(graph, b);
+			boolean[]am = DFS_A.marked;
+			boolean[]bm = DFS_B.marked;
+			for(int i = 0; i<am.length; i++){
+				if(am[i]==bm[i]){
+					return i;
+				}
+			}
+			return -1;
 		}
 	}
 	
-	public static void main(String[]rgs){
+	public static void main(String[]args){
 		Digraph v = new Digraph(0);
 		v.addEdge(0, 1);
 	}
